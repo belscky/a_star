@@ -1,0 +1,16 @@
+1. Object working with: graph
+1.1 Graph is a structure:
+	Vertex is a structure
+		name
+		linked
+	Link is structure
+		weight
+		x, y
+	Methods:
+		getVertex(name);
+		getLink(x, y);
+
+
+
+Graph g = new Graph(...);
+g.getVertex("b").getLink("e")
