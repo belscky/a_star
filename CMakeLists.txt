@@ -4,4 +4,5 @@ project(a_star)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(a_star
-        hello_world.cpp)
+        test.cpp
+        objects.h)
