@@ -6,8 +6,14 @@
 
 using namespace std;
 int main() {
-    Test one = Test("Alexy");
-    cout << one.name << endl;
-
+    Graph g;
+    g.addVertex("a");
+    g.addVertex("b");
+    g.addVertex("c");
+    g.addLink("a", "b", 1);
+    g.addLink("b", "c", 2);
+    g.addLink("c", "a", 3);
+    cout << g.getVertexesList() << endl;
+    cout << g.getLinksList() << endl;
     return 0;
 }
