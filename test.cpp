@@ -8,8 +8,13 @@
 using namespace std;
 int main() {
     Graph g = Graph({{"a", {"b", "c"}},
-                            {"b", {"a", "c"}},
-                            {"c", {"a", "b"}}});
-    cout << vertexToString(g.neighbors("b")) << endl;
+                            {"b", {"d"}},
+                            {"c", {"e"}},
+                            {"d", {"e"}},
+                            {"e", {"c", "d"}}},
+                    {{"a", {{"b", 4.5}, {"c", 3.6}}},
+                             {"b", {{"d", 3.6}}}
+                    });
+    cout << g.cost("a", "b") << endl;
     return 0;
 }

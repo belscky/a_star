@@ -9,9 +9,10 @@
 #ifndef A_STAR_API_H
 #define A_STAR_API_H
 
-void bfs(Graph g, string start, string end) {
+vector<string> bfs(Graph g, string start) {
     queue<string> frontier;
     frontier.push(start);
+    vector<string> path;
 
     unordered_set<string> reached;
     reached.insert(start);
@@ -20,6 +21,8 @@ void bfs(Graph g, string start, string end) {
         string current = frontier.front();
         frontier.pop();
 
+        path.push_back(current);
+
         for (string next : g.neighbors(current)) {
             if (reached.find(next) == reached.end()) {
                 frontier.push(next);
@@ -27,6 +30,7 @@ void bfs(Graph g, string start, string end) {
             }
         }
     }
+    return path;
 }
 
 

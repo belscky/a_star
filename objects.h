@@ -10,11 +10,18 @@ using namespace std;
 
 struct Graph {
     unordered_map<string, vector<string>> edges;
-    Graph(unordered_map<string, vector<string>> _edges) {
+    unordered_map<string, unordered_map<string, double>> weights;
+    Graph(unordered_map<string, vector<string>> _edges, unordered_map<string, unordered_map<string, double>> _weights) {
         edges = _edges;
+        weights = _weights;
     }
+
     vector<string> neighbors(string vertex) {
         return edges[vertex];
+    }
+
+    double cost(string x, string y) {
+        return weights[x][y];
     }
 };
 
