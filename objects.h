@@ -44,6 +44,8 @@ struct Graph {
                 return &vertexes[i];
             }
         }
+        auto none_vertex = Vertex("None");
+        return &none_vertex;
     }
 
     void addLink(string x, string y, int w) {
