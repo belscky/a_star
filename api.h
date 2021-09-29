@@ -9,23 +9,32 @@
 #ifndef A_STAR_API_H
 #define A_STAR_API_H
 
-vector<string> bfs(Graph g, string start) {
+vector<string> dijkstra(Graph g, string start, string end) {
+    // не дописан блять !!!
     queue<string> frontier;
-    frontier.push(start);
+    unordered_map<string, string> came_from;
+    unordered_map<string, double> edges_cost;
     vector<string> path;
-
     unordered_set<string> reached;
+    frontier.push(start);
     reached.insert(start);
+
+    came_from[start] = start;
+    edges_cost[start] = 0;
 
     while (!frontier.empty()) {
         string current = frontier.front();
         frontier.pop();
 
-        path.push_back(current);
+        if (current == end) {
+            break;
+        }
 
         for (string next : g.neighbors(current)) {
-            if (reached.find(next) == reached.end()) {
-                frontier.push(next);
+            double new_cost = edges_cost[current] + g.cost(current, next);
+            if (edges_cost.find(next) == edges_cost.end() || new_cost < edges_cost[next]) {
+                edges_cost[next] = new_cost;
+                came_from[next] = current;
                 reached.insert(next);
             }
         }
