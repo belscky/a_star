@@ -13,11 +13,8 @@ using namespace std;
 struct GridGraph {
     unordered_map<string, unordered_map<string, int>> edges;
     unordered_map<string, pair<int, int>> coords;
-    int n, m;
-    GridGraph(unordered_map<string, unordered_map<string, int>> _edges, int _n, int _m, unordered_map<string, pair<int, int>> _coords) {
+    GridGraph(unordered_map<string, unordered_map<string, int>> _edges, unordered_map<string, pair<int, int>> _coords) {
         edges = _edges;
-        n = _n;
-        m = _m;
         coords = _coords;
     }
 
