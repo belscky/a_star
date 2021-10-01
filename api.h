@@ -3,45 +3,52 @@
 //
 #include <vector>
 #include <queue>
+#include <algorithm>
 #include <unordered_set>
 #include "objects.h"
 #include <string>
 #ifndef A_STAR_API_H
 #define A_STAR_API_H
 
-vector<string> dijkstra(Graph g, string start, string end) {
-    // не дописан блять !!!
-    queue<string> frontier;
+unordered_map<string, string> a_star(GridGraph graph, string start, string end) {
+    queue<string> visited;
+    PriorityQueue<string, int> to_visit;
+    to_visit.put(start, 0);
+    unordered_map<string, int> g, f;
     unordered_map<string, string> came_from;
-    unordered_map<string, double> edges_cost;
-    vector<string> path;
-    unordered_set<string> reached;
-    frontier.push(start);
-    reached.insert(start);
-
     came_from[start] = start;
-    edges_cost[start] = 0;
-
-    while (!frontier.empty()) {
-        string current = frontier.front();
-        frontier.pop();
-
+    g[start] = 0;
+    f[start] = 0;
+    while (!to_visit.empty()) {
+        string current = to_visit.get();
         if (current == end) {
             break;
         }
-
-        for (string next : g.neighbors(current)) {
-            double new_cost = edges_cost[current] + g.cost(current, next);
-            if (edges_cost.find(next) == edges_cost.end() || new_cost < edges_cost[next]) {
-                edges_cost[next] = new_cost;
+        visited.push(current);
+        for (string next : graph.neighbors(current)) {
+            int tentativeScore = g[current] + graph.cost(current, next);
+            if (g.find(next) == g.end() || tentativeScore < g[next]) {
+                g[next] = tentativeScore;
+                f[next] = g[next] + graph.h_grid(current, next);
                 came_from[next] = current;
-                reached.insert(next);
+                to_visit.put(next, tentativeScore);
             }
         }
     }
-    return path;
+    return came_from;
 }
 
+vector<string> findPath(string start, string end, unordered_map<string, string> came_from) {
+    vector<string> path;
+    string current = end;
+    while (current != start) {
+        path.push_back(current);
+        current = came_from[current];
+    }
+    path.push_back(start);
+    reverse(path.begin(), path.end());
+    return path;
+}
 
 string vertexToString(vector<string> v) {
     string result = "";
