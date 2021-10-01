@@ -11,9 +11,9 @@
 using namespace std;
 
 struct GridGraph {
-    unordered_map<string, unordered_map<string, int>> edges;
+    unordered_map<string, unordered_map<string, double>> edges;
     unordered_map<string, pair<int, int>> coords;
-    GridGraph(unordered_map<string, unordered_map<string, int>> _edges, unordered_map<string, pair<int, int>> _coords) {
+    GridGraph(unordered_map<string, unordered_map<string, double>> _edges, unordered_map<string, pair<int, int>> _coords) {
         edges = _edges;
         coords = _coords;
     }
@@ -35,8 +35,10 @@ struct GridGraph {
         return coords[vertex];
     }
 
-    int h_grid(string x, string y) {
-        return abs(vertexCoordinates(x).first - vertexCoordinates(y).first) + abs(vertexCoordinates(x).second - vertexCoordinates(y).second);
+    double h_grid(string x, string y) {
+        double x_c = pow(vertexCoordinates(x).first - vertexCoordinates(y).first, 2);
+        double y_c = pow(vertexCoordinates(x).second - vertexCoordinates(y).second, 2);
+        return sqrt(x_c + y_c);
     }
 };
 

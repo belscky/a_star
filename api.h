@@ -11,10 +11,12 @@
 #define A_STAR_API_H
 
 unordered_map<string, string> a_star(GridGraph graph, string start, string end) {
+    unordered_map<string, string> none = {{"none", "none"}};
     queue<string> visited;
-    PriorityQueue<string, int> to_visit;
+    PriorityQueue<string, double> to_visit;
     to_visit.put(start, 0);
-    unordered_map<string, int> g, f;
+    unordered_map<string, double> g, f;
+    bool flag = true;
     unordered_map<string, string> came_from;
     came_from[start] = start;
     g[start] = 0;
@@ -26,7 +28,7 @@ unordered_map<string, string> a_star(GridGraph graph, string start, string end) 
         }
         visited.push(current);
         for (string next : graph.neighbors(current)) {
-            int tentativeScore = g[current] + graph.cost(current, next);
+            double tentativeScore = g[current] + graph.cost(current, next);
             if (g.find(next) == g.end() || tentativeScore < g[next]) {
                 g[next] = tentativeScore;
                 f[next] = g[next] + graph.h_grid(current, next);
@@ -35,15 +37,23 @@ unordered_map<string, string> a_star(GridGraph graph, string start, string end) 
             }
         }
     }
-    return came_from;
+    if (came_from.find(end) != came_from.end())
+        return came_from;
+    else
+        return none;
 }
 
 vector<string> findPath(string start, string end, unordered_map<string, string> came_from) {
     vector<string> path;
+    vector<string> none;
+    none.emplace_back("none");
     string current = end;
     while (current != start) {
         path.push_back(current);
-        current = came_from[current];
+        if (came_from.find(current) == came_from.end())
+            return none;
+        else
+            current = came_from[current];
     }
     path.push_back(start);
     reverse(path.begin(), path.end());
@@ -51,9 +61,9 @@ vector<string> findPath(string start, string end, unordered_map<string, string> 
 }
 
 string vertexToString(vector<string> v) {
-    string result = "";
-    for (int i=0; i<v.size(); i++) {
-        result += v[i] + " ";
+    string result;
+    for (auto & i : v) {
+        result += i + " ";
     }
     return result;
 }
