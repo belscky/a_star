@@ -31,7 +31,7 @@ unordered_map<string, string> a_star(GridGraph graph, string start, string end) 
                 g[next] = tentativeScore;
                 f[next] = g[next] + graph.h_grid(current, next);
                 came_from[next] = current;
-                to_visit.put(next, tentativeScore);
+                to_visit.put(next, f[next]);
             }
         }
     }

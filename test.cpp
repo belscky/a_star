@@ -8,13 +8,16 @@
 using namespace std;
 typedef pair<int, int> coord;
 int main() {
-    GridGraph g = GridGraph({{"a", {{"b", 3}, {"c", 4}}},
+    GridGraph g = GridGraph({{"a", {{"b", 3}, {"c", 8}, {"x", 3}}},
                                     {"b", {{"d", 3}}},
-                                    {"c", {{"d", 4}}}}, 10, 10,
+                                    {"x", {{"d", 3}}},
+                                    {"c", {{"d", 8}}}}, 10, 10,
                             {{"a", coord(1, 1)},
-                                    {"b", coord(20,1)},
+                                    {"b", coord(200,200)},
                                     {"c", coord (1, 3)},
-                                    {"d", coord(3, 3)}});
-    cout << vertexToString(findPath("a", "d", a_star(g, "a", "d"))) << endl;
+                                    {"d", coord(3, 3)},
+                                    {"x", coord(3, 1)}});
+    unordered_map<string, string> came_from = a_star(g, "a", "d");
+    cout << vertexToString(findPath("a", "d", came_from)) << endl;
     return 0;
 }
