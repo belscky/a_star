@@ -9,19 +9,22 @@
 using namespace std;
 
 struct Graph {
-    unordered_map<string, vector<string>> edges;
-    unordered_map<string, unordered_map<string, double>> weights;
-    Graph(unordered_map<string, vector<string>> _edges, unordered_map<string, unordered_map<string, double>> _weights) {
+    unordered_map<string, unordered_map<string, double>> edges;
+    Graph(unordered_map<string, unordered_map<string, double>> _edges) {
         edges = _edges;
-        weights = _weights;
     }
 
     vector<string> neighbors(string vertex) {
-        return edges[vertex];
+        vector<string> result;
+        auto it = edges[vertex].begin();
+        for (int i=0; it != edges[vertex].end(); it++, i++) {
+            result.push_back(it->first);
+        }
+        return result;
     }
 
     double cost(string x, string y) {
-        return weights[x][y];
+        return edges[x][y];
     }
 };
 
