@@ -31,13 +31,9 @@ struct GridGraph {
         return edges[x][y];
     }
 
-    pair<int, int> vertexCoordinates(string vertex) {
-        return coords[vertex];
-    }
-
     double h_grid(string x, string y) {
-        double x_c = pow(vertexCoordinates(x).first - vertexCoordinates(y).first, 2);
-        double y_c = pow(vertexCoordinates(x).second - vertexCoordinates(y).second, 2);
+        double x_c = pow(coords[x].first - coords[y].first, 2);
+        double y_c = pow(coords[x].second - coords[y].second, 2);
         return sqrt(x_c + y_c);
     }
 };
