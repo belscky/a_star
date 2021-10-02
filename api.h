@@ -11,6 +11,13 @@
 #define A_STAR_API_H
 
 unordered_map<string, string> a_star(GridGraph graph, string start, string end) {
+    /* a_star algorithm on GridGraph
+     *
+     * graph: graph object
+     * start: start vertex name
+     * end: end vertex name
+     *
+     * return: dictionary where pair (key, value) is meaning (vertex, parent vertex)*/
     unordered_map<string, string> none = {{"none", "none"}};
     queue<string> visited;
     PriorityQueue<string, double> to_visit;
@@ -44,6 +51,13 @@ unordered_map<string, string> a_star(GridGraph graph, string start, string end) 
 }
 
 vector<string> findPath(string start, string end, unordered_map<string, string> came_from) {
+    /* finds path from returned dict from a_star
+     *
+     * start: start vertex name
+     * end: end vertex name
+     * came_from: returned from a_star
+     *
+     * return: vector of vertexes of path from start to end*/
     vector<string> path;
     vector<string> none;
     none.emplace_back("none");
@@ -61,6 +75,7 @@ vector<string> findPath(string start, string end, unordered_map<string, string> 
 }
 
 string vertexToString(vector<string> v) {
+    // Converts vertex to string
     string result;
     for (auto & i : v) {
         result += i + " ";
